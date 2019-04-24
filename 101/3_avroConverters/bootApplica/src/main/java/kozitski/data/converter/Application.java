@@ -47,8 +47,6 @@ public class Application implements CommandLineRunner {
     public void run(String... args) {
         applicationExecutor.runApplication();
 
-        System.out.println("___________________");
-
         context.close();
     }
 
