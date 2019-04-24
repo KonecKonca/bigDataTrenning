@@ -1,12 +1,16 @@
-package kozitski.data.converter.io.parser;
+package kozitski.data.converter.io.parser.impl;
 
 import kozitski.data.converter.dto.TrainDTO;
+import kozitski.data.converter.io.parser.InputLineParser;
 import kozitski.data.converter.io.util.ConvertType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Train parser.
+ */
 @Component
 @Slf4j
 public class TrainParser implements InputLineParser<TrainDTO> {
@@ -21,7 +25,11 @@ public class TrainParser implements InputLineParser<TrainDTO> {
         if(line != null && !line.isEmpty()){
             String[] fields = line.split(delimetr);
 
-            result = TrainDTO.builder()
+            /*
+             * MAGIC NUMBERS due to dedined order of fields in trhe input file
+             */
+            result = TrainDTO
+                .builder()
                     .dateTime(ConvertType.stringWithNulParse(fields[0]))
                     .siteName(ConvertType.intWithNulParse(fields[1]))
                     .posaContinent(ConvertType.intWithNulParse(fields[2]))
@@ -40,17 +48,13 @@ public class TrainParser implements InputLineParser<TrainDTO> {
                     .srchRmCnt(ConvertType.stringWithNulParse(fields[15]))
                     .srchDestinationId(ConvertType.intWithNulParse(fields[16]))
                     .srchDestinationTypeId(ConvertType.intWithNulParse(fields[17]))
-
                     .isBooking(ConvertType.intWithNulParse(fields[18]))
                     .cnt(ConvertType.longWithNulParse(fields[19]))
-
                     .hotelContinent(ConvertType.intWithNulParse(fields[20]))
                     .hotelCountry(ConvertType.intWithNulParse(fields[21]))
                     .hotelMarket(ConvertType.intWithNulParse(fields[22]))
-
                     .hotelCluster(ConvertType.intWithNulParse(fields[23]))
-
-                    .build();
+                .build();
         }
 
         return result;

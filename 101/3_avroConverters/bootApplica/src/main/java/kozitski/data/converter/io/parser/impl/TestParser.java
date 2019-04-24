@@ -1,15 +1,19 @@
-package kozitski.data.converter.io.parser;
+package kozitski.data.converter.io.parser.impl;
 
 import kozitski.data.converter.dto.TestDTO;
+import kozitski.data.converter.io.parser.InputLineParser;
 import kozitski.data.converter.io.util.ConvertType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Test parser.
+ */
 @Component
 @Slf4j
-public class TestParser implements InputLineParser<TestDTO>{
+public class TestParser implements InputLineParser<TestDTO> {
     @Setter @Getter
     private String delimetr = ",";
 
@@ -20,6 +24,9 @@ public class TestParser implements InputLineParser<TestDTO>{
         if(line != null && !line.isEmpty()){
             String[] fields = line.split(delimetr);
 
+            /*
+            * MAGIC NUMBERS due to dedined order of fields in trhe input file
+            */
             result = TestDTO.builder()
                     .id(ConvertType.stringWithNulParse(fields[0]))
                     .dateTime(ConvertType.stringWithNulParse(fields[1]))

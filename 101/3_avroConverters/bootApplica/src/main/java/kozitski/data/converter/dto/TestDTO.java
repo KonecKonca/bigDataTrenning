@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Optional;
 
+/**
+ * The type Test dto.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
