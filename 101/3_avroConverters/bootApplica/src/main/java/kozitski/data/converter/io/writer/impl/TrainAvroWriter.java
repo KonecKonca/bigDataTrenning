@@ -21,6 +21,7 @@ public class TrainAvroWriter extends AbstractAvroWriter<TrainDTO> {
 
     private TrainSchemaGenerator trainSchemaGenerator;
     private TrainCsvReader trainCsvReader;
+    private SchemaConstant schemaConstant;
 
     /**
      * Sets train schema generator.
@@ -42,6 +43,11 @@ public class TrainAvroWriter extends AbstractAvroWriter<TrainDTO> {
         this.trainCsvReader = trainCsvReader;
     }
 
+    @Autowired
+    public void setSchemaConstant(SchemaConstant schemaConstant) {
+        this.schemaConstant = schemaConstant;
+    }
+
     @Override
     public Schema defineSchema() {
         return trainSchemaGenerator.generateSchema();
@@ -54,30 +60,30 @@ public class TrainAvroWriter extends AbstractAvroWriter<TrainDTO> {
 
     @Override
     public void writeRecord(GenericData.Record record, TrainDTO element) {
-        record.put(SchemaConstant.dateTime, element.getDateTime().orElse(null));
-        record.put(SchemaConstant.siteName, element.getSiteName().orElse(null));
-        record.put(SchemaConstant.posaContinent, element.getPosaContinent().orElse(null));
-        record.put(SchemaConstant.userLocationCountry, element.getUserLocationCountry().orElse(null));
-        record.put(SchemaConstant.userLocationRegion, element.getUserLocationRegion().orElse(null));
-        record.put(SchemaConstant.userLocationCity, element.getUserLocationCity().orElse(null));
-        record.put(SchemaConstant.origDestinationDistance, element.getOrigDestinationDistance().orElse(null));
-        record.put(SchemaConstant.userId, element.getUserId().orElse(null));
-        record.put(SchemaConstant.isMobile, element.getIsMobile().orElse(null));
-        record.put(SchemaConstant.isPackage, element.getIsPackage().orElse(null));
-        record.put(SchemaConstant.channel, element.getChannel().orElse(null));
-        record.put(SchemaConstant.srchCi, element.getSrchCi().orElse(null));
-        record.put(SchemaConstant.srchCo, element.getSrchCo().orElse(null));
-        record.put(SchemaConstant.srchAdultsCnt, element.getSrchAdultsCnt().orElse(null));
-        record.put(SchemaConstant.srchChildrenCnt, element.getSrchChildrenCnt().orElse(null));
-        record.put(SchemaConstant.srchRmCnt, element.getSrchRmCnt().orElse(null));
-        record.put(SchemaConstant.srchDestinationId, element.getSrchDestinationId().orElse(null));
-        record.put(SchemaConstant.srchDestinationTypeId, element.getSrchDestinationTypeId().orElse(null));
-        record.put(SchemaConstant.isBooking, element.getIsBooking().orElse(null));
-        record.put(SchemaConstant.cnt, element.getCnt().orElse(null));
-        record.put(SchemaConstant.hotelContinent, element.getHotelContinent().orElse(null));
-        record.put(SchemaConstant.hotelCountry, element.getHotelCountry().orElse(null));
-        record.put(SchemaConstant.hotelMarket, element.getHotelMarket().orElse(null));
-        record.put(SchemaConstant.hotelCluster, element.getHotelCluster().orElse(null));
+        record.put(schemaConstant.dateTime, element.getDateTime().orElse(null));
+        record.put(schemaConstant.siteName, element.getSiteName().orElse(null));
+        record.put(schemaConstant.posaContinent, element.getPosaContinent().orElse(null));
+        record.put(schemaConstant.userLocationCountry, element.getUserLocationCountry().orElse(null));
+        record.put(schemaConstant.userLocationRegion, element.getUserLocationRegion().orElse(null));
+        record.put(schemaConstant.userLocationCity, element.getUserLocationCity().orElse(null));
+        record.put(schemaConstant.origDestinationDistance, element.getOrigDestinationDistance().orElse(null));
+        record.put(schemaConstant.userId, element.getUserId().orElse(null));
+        record.put(schemaConstant.isMobile, element.getIsMobile().orElse(null));
+        record.put(schemaConstant.isPackage, element.getIsPackage().orElse(null));
+        record.put(schemaConstant.channel, element.getChannel().orElse(null));
+        record.put(schemaConstant.srchCi, element.getSrchCi().orElse(null));
+        record.put(schemaConstant.srchCo, element.getSrchCo().orElse(null));
+        record.put(schemaConstant.srchAdultsCnt, element.getSrchAdultsCnt().orElse(null));
+        record.put(schemaConstant.srchChildrenCnt, element.getSrchChildrenCnt().orElse(null));
+        record.put(schemaConstant.srchRmCnt, element.getSrchRmCnt().orElse(null));
+        record.put(schemaConstant.srchDestinationId, element.getSrchDestinationId().orElse(null));
+        record.put(schemaConstant.srchDestinationTypeId, element.getSrchDestinationTypeId().orElse(null));
+        record.put(schemaConstant.isBooking, element.getIsBooking().orElse(null));
+        record.put(schemaConstant.cnt, element.getCnt().orElse(null));
+        record.put(schemaConstant.hotelContinent, element.getHotelContinent().orElse(null));
+        record.put(schemaConstant.hotelCountry, element.getHotelCountry().orElse(null));
+        record.put(schemaConstant.hotelMarket, element.getHotelMarket().orElse(null));
+        record.put(schemaConstant.hotelCluster, element.getHotelCluster().orElse(null));
     }
 
 

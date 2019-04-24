@@ -4,41 +4,49 @@ import kozitski.data.converter.scheme.SchemaConstant;
 import kozitski.data.converter.scheme.SchemaGenerator;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /* generation Schema for train file */
 @Component
 public class TrainSchemaGenerator implements SchemaGenerator {
 
+    private SchemaConstant schemaConstant;
+
+    @Autowired
+    public void setSchemaConstant(SchemaConstant schemaConstant) {
+        this.schemaConstant = schemaConstant;
+    }
+
     @Override
     public Schema generateSchema() {
         return SchemaBuilder
-                .record(SchemaConstant.trainSchemaName)
+                .record(schemaConstant.trainSchemaName)
                 .fields()
-                    .optionalString(SchemaConstant.dateTime)
-                    .optionalInt(SchemaConstant.siteName)
-                    .optionalInt(SchemaConstant.posaContinent)
-                    .optionalInt(SchemaConstant.userLocationCountry)
-                    .optionalInt(SchemaConstant.userLocationRegion)
-                    .optionalInt(SchemaConstant.userLocationCity)
-                    .optionalDouble(SchemaConstant.origDestinationDistance)
-                    .optionalInt(SchemaConstant.userId)
-                    .optionalInt(SchemaConstant.isMobile)
-                    .optionalInt(SchemaConstant.isPackage)
-                    .optionalInt(SchemaConstant.channel)
-                    .optionalString(SchemaConstant.srchCi)
-                    .optionalString(SchemaConstant.srchCo)
-                    .optionalInt(SchemaConstant.srchAdultsCnt)
-                    .optionalInt(SchemaConstant.srchChildrenCnt)
-                    .optionalString(SchemaConstant.srchRmCnt)
-                    .optionalInt(SchemaConstant.srchDestinationId)
-                    .optionalInt(SchemaConstant.srchDestinationTypeId)
-                    .optionalInt(SchemaConstant.isBooking)
-                    .optionalLong(SchemaConstant.cnt)
-                    .optionalInt(SchemaConstant.hotelContinent)
-                    .optionalInt(SchemaConstant.hotelCountry)
-                    .optionalInt(SchemaConstant.hotelMarket)
-                    .optionalInt(SchemaConstant.hotelCluster)
+                    .optionalString(schemaConstant.dateTime)
+                    .optionalInt(schemaConstant.siteName)
+                    .optionalInt(schemaConstant.posaContinent)
+                    .optionalInt(schemaConstant.userLocationCountry)
+                    .optionalInt(schemaConstant.userLocationRegion)
+                    .optionalInt(schemaConstant.userLocationCity)
+                    .optionalDouble(schemaConstant.origDestinationDistance)
+                    .optionalInt(schemaConstant.userId)
+                    .optionalInt(schemaConstant.isMobile)
+                    .optionalInt(schemaConstant.isPackage)
+                    .optionalInt(schemaConstant.channel)
+                    .optionalString(schemaConstant.srchCi)
+                    .optionalString(schemaConstant.srchCo)
+                    .optionalInt(schemaConstant.srchAdultsCnt)
+                    .optionalInt(schemaConstant.srchChildrenCnt)
+                    .optionalString(schemaConstant.srchRmCnt)
+                    .optionalInt(schemaConstant.srchDestinationId)
+                    .optionalInt(schemaConstant.srchDestinationTypeId)
+                    .optionalInt(schemaConstant.isBooking)
+                    .optionalLong(schemaConstant.cnt)
+                    .optionalInt(schemaConstant.hotelContinent)
+                    .optionalInt(schemaConstant.hotelCountry)
+                    .optionalInt(schemaConstant.hotelMarket)
+                    .optionalInt(schemaConstant.hotelCluster)
                 .endRecord();
     }
 

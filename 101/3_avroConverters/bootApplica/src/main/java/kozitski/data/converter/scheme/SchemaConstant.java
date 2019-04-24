@@ -13,78 +13,78 @@ public class SchemaConstant {
 
     /* test constants*/
     @Value("${data.schema.test.schemaName}")
-    public static String testSchemaName;
+    public  String testSchemaName;
     @Value("${data.schema.test.id}")
-    public static String id;
+    public  String id;
 
     /* test-train constants*/
     @Value("${data.schema.test.dateTime}")
-    public static String dateTime;
+    public  String dateTime;
     @Value("${data.schema.test.siteName}")
-    public static String siteName;
+    public  String siteName;
     @Value("${data.schema.test.posaContinent}")
-    public static String posaContinent;
+    public  String posaContinent;
     @Value("${data.schema.test.userLocationCountry}")
-    public static String userLocationCountry;
+    public  String userLocationCountry;
     @Value("${data.schema.test.userLocationRegion}")
-    public static String userLocationRegion;
+    public  String userLocationRegion;
     @Value("${data.schema.test.userLocationCity}")
-    public static String userLocationCity;
+    public  String userLocationCity;
     @Value("${data.schema.test.origDestinationDistance}")
-    public static String origDestinationDistance;
+    public  String origDestinationDistance;
     @Value("${data.schema.test.userId}")
-    public static String userId;
+    public  String userId;
     @Value("${data.schema.test.isMobile}")
-    public static String isMobile;
+    public  String isMobile;
     @Value("${data.schema.test.isPackage}")
-    public static String isPackage;
+    public  String isPackage;
     @Value("${data.schema.test.channel}")
-    public static String channel;
+    public  String channel;
     @Value("${data.schema.test.srchCi}")
-    public static String srchCi;
+    public  String srchCi;
     @Value("${data.schema.test.srchCo}")
-    public static String srchCo;
+    public  String srchCo;
     @Value("${data.schema.test.srchAdultsCnt}")
-    public static String srchAdultsCnt;
+    public  String srchAdultsCnt;
     @Value("${data.schema.test.srchChildrenCnt}")
-    public static String srchChildrenCnt;
+    public  String srchChildrenCnt;
     @Value("${data.schema.test.srchRmCnt}")
-    public static String srchRmCnt;
+    public  String srchRmCnt;
     @Value("${data.schema.test.srchDestinationId}")
-    public static String srchDestinationId;
+    public  String srchDestinationId;
     @Value("${data.schema.test.srchDestinationTypeId}")
-    public static String srchDestinationTypeId;
+    public  String srchDestinationTypeId;
     @Value("${data.schema.test.hotelContinent}")
-    public static String hotelContinent;
+    public  String hotelContinent;
     @Value("${data.schema.test.hotelCountry}")
-    public static String hotelCountry;
+    public  String hotelCountry;
     @Value("${data.schema.test.hotelMarket}")
-    public static String hotelMarket;
+    public  String hotelMarket;
 
     /* train constants*/
     @Value("${data.schema.train.schemaName}")
-    public static String trainSchemaName;
+    public  String trainSchemaName;
     @Value("${data.schema.train.hotelCluster}")
-    public static String hotelCluster;
+    public  String hotelCluster;
     @Value("${data.schema.train.isBooking}")
-    public static String isBooking;
+    public  String isBooking;
     @Value("${data.schema.train.cnt}")
-    public static String cnt;
+    public  String cnt;
 
     /* SampleSumbission constants*/
     @Value("${data.schema.sampleSumbission.schemaName}")
-    public static String sampleSumbissionSchemaName;
+    public  String sampleSumbissionSchemaName;
     @Value("${data.schema.sampleSumbission.id}")
-    public static String sampleSumbissionId;
+    public  String sampleSumbissionId;
     @Value("${data.schema.sampleSumbission.hotelCluster}")
-    public static String sampleSumbissionHotelCluster;
+    public  String sampleSumbissionHotelCluster;
 
     /* destination constants*/
     @Value("${data.schema.destination.schemaName}")
-    public static String destinationSchemaName;
+    public  String destinationSchemaName;
     @Value("${data.schema.destination.d}")
-    public static String destinationD;
+    public  String destinationD;
     @Value("${data.schema.destination.srchDestinationId}")
-    public static String destinationSrchDestinationId;
+    public  String destinationSrchDestinationId;
 
 }

@@ -6,7 +6,6 @@ import kozitski.data.converter.io.reader.impl.TestCsvReader;
 import kozitski.data.converter.io.writer.AbstractAvroWriter;
 import kozitski.data.converter.scheme.SchemaConstant;
 import kozitski.data.converter.scheme.impl.TestSchemaGenerator;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ public class TestAvroWriter extends AbstractAvroWriter<TestDTO> {
 
     private TestSchemaGenerator schemaGenerator;
     private TestCsvReader csvReader;
+    private SchemaConstant schemaConstant;
 
     /**
      * Sets schema generator.
@@ -41,6 +41,11 @@ public class TestAvroWriter extends AbstractAvroWriter<TestDTO> {
         this.csvReader = csvReader;
     }
 
+    @Autowired
+    public void setSchemaConstant(SchemaConstant schemaConstant) {
+        this.schemaConstant = schemaConstant;
+    }
+
     @Override
     public Schema defineSchema() {
         return schemaGenerator.generateSchema();
@@ -53,28 +58,28 @@ public class TestAvroWriter extends AbstractAvroWriter<TestDTO> {
 
     @Override
     public void writeRecord(GenericData.Record record, TestDTO element) {
-        record.put(SchemaConstant.id, element.getId().orElse(null));
-        record.put(SchemaConstant.dateTime, element.getDateTime().orElse(null));
-        record.put(SchemaConstant.siteName, element.getSiteName().orElse(null));
-        record.put(SchemaConstant.posaContinent, element.getPosaContinent().orElse(null));
-        record.put(SchemaConstant.userLocationCountry, element.getUserLocationCountry().orElse(null));
-        record.put(SchemaConstant.userLocationRegion, element.getUserLocationRegion().orElse(null));
-        record.put(SchemaConstant.userLocationCity, element.getUserLocationCity().orElse(null));
-        record.put(SchemaConstant.origDestinationDistance, element.getOrigDestinationDistance().orElse(null));
-        record.put(SchemaConstant.userId, element.getUserId().orElse(null));
-        record.put(SchemaConstant.isMobile, element.getIsMobile().orElse(null));
-        record.put(SchemaConstant.isPackage, element.getIsPackage().orElse(null));
-        record.put(SchemaConstant.channel, element.getChannel().orElse(null));
-        record.put(SchemaConstant.srchCi, element.getSrchCi().orElse(null));
-        record.put(SchemaConstant.srchCo, element.getSrchCo().orElse(null));
-        record.put(SchemaConstant.srchAdultsCnt, element.getSrchAdultsCnt().orElse(null));
-        record.put(SchemaConstant.srchChildrenCnt, element.getSrchChildrenCnt().orElse(null));
-        record.put(SchemaConstant.srchRmCnt, element.getSrchRmCnt().orElse(null));
-        record.put(SchemaConstant.srchDestinationId, element.getSrchDestinationId().orElse(null));
-        record.put(SchemaConstant.srchDestinationTypeId, element.getSrchDestinationTypeId().orElse(null));
-        record.put(SchemaConstant.hotelContinent, element.getHotelContinent().orElse(null));
-        record.put(SchemaConstant.hotelCountry, element.getHotelCountry().orElse(null));
-        record.put(SchemaConstant.hotelMarket, element.getHotelMarket().orElse(null));
+        record.put(schemaConstant.id, element.getId().orElse(null));
+        record.put(schemaConstant.dateTime, element.getDateTime().orElse(null));
+        record.put(schemaConstant.siteName, element.getSiteName().orElse(null));
+        record.put(schemaConstant.posaContinent, element.getPosaContinent().orElse(null));
+        record.put(schemaConstant.userLocationCountry, element.getUserLocationCountry().orElse(null));
+        record.put(schemaConstant.userLocationRegion, element.getUserLocationRegion().orElse(null));
+        record.put(schemaConstant.userLocationCity, element.getUserLocationCity().orElse(null));
+        record.put(schemaConstant.origDestinationDistance, element.getOrigDestinationDistance().orElse(null));
+        record.put(schemaConstant.userId, element.getUserId().orElse(null));
+        record.put(schemaConstant.isMobile, element.getIsMobile().orElse(null));
+        record.put(schemaConstant.isPackage, element.getIsPackage().orElse(null));
+        record.put(schemaConstant.channel, element.getChannel().orElse(null));
+        record.put(schemaConstant.srchCi, element.getSrchCi().orElse(null));
+        record.put(schemaConstant.srchCo, element.getSrchCo().orElse(null));
+        record.put(schemaConstant.srchAdultsCnt, element.getSrchAdultsCnt().orElse(null));
+        record.put(schemaConstant.srchChildrenCnt, element.getSrchChildrenCnt().orElse(null));
+        record.put(schemaConstant.srchRmCnt, element.getSrchRmCnt().orElse(null));
+        record.put(schemaConstant.srchDestinationId, element.getSrchDestinationId().orElse(null));
+        record.put(schemaConstant.srchDestinationTypeId, element.getSrchDestinationTypeId().orElse(null));
+        record.put(schemaConstant.hotelContinent, element.getHotelContinent().orElse(null));
+        record.put(schemaConstant.hotelCountry, element.getHotelCountry().orElse(null));
+        record.put(schemaConstant.hotelMarket, element.getHotelMarket().orElse(null));
     }
 
 }

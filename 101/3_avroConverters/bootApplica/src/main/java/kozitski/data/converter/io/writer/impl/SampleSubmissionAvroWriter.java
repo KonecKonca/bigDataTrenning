@@ -19,6 +19,7 @@ public class SampleSubmissionAvroWriter extends AbstractAvroWriter<SampleSubmiss
 
     private SampleSubmissionSchemaGenerator sampleSubmissionSchemaGenerator;
     private SampleSubmissionCsvReader sampleSubmissionCsvReader;
+    private SchemaConstant schemaConstant;
 
     /**
      * Sets sample submission schema generator.
@@ -40,6 +41,11 @@ public class SampleSubmissionAvroWriter extends AbstractAvroWriter<SampleSubmiss
         this.sampleSubmissionCsvReader = sampleSubmissionCsvReader;
     }
 
+    @Autowired
+    public void setSchemaConstant(SchemaConstant schemaConstant) {
+        this.schemaConstant = schemaConstant;
+    }
+
     @Override
     public Schema defineSchema() {
         return sampleSubmissionSchemaGenerator.generateSchema();
@@ -52,8 +58,8 @@ public class SampleSubmissionAvroWriter extends AbstractAvroWriter<SampleSubmiss
 
     @Override
     public void writeRecord(GenericData.Record record, SampleSubmissionDTO element) {
-        record.put(SchemaConstant.sampleSumbissionId, element.getId().orElse(null));
-        record.put(SchemaConstant.hotelCluster, element.getHotelCluster().orElse(null));
+        record.put(schemaConstant.sampleSumbissionId, element.getId().orElse(null));
+        record.put(schemaConstant.hotelCluster, element.getHotelCluster().orElse(null));
     }
 
 }

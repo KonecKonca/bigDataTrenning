@@ -5,6 +5,7 @@ import kozitski.data.converter.scheme.SchemaGenerator;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /* generation Schema for Destination file */
@@ -12,20 +13,26 @@ import org.springframework.stereotype.Component;
 public class DestinationSchemaGenerator implements SchemaGenerator {
     private static final Integer COUNT_OF_D_FIELD = 149;
 
+    private SchemaConstant schemaConstant;
+
+    @Autowired
+    public void setSchemaConstant(SchemaConstant schemaConstant) {
+        this.schemaConstant = schemaConstant;
+    }
+
     @Override
     public Schema generateSchema() {
 
-        SchemaBuilder.FieldAssembler<Schema> schemaFieldAssembler = SchemaBuilder.record(SchemaConstant.destinationSchemaName)
+        SchemaBuilder.FieldAssembler<Schema> schemaFieldAssembler = SchemaBuilder.record(schemaConstant.destinationSchemaName)
                 .fields()
-                .optionalInt(SchemaConstant.srchDestinationId);
+                .optionalInt(schemaConstant.srchDestinationId);
 
         for (int i = NumberUtils.INTEGER_ONE; i <= COUNT_OF_D_FIELD; i++){
-            schemaFieldAssembler.optionalDouble(SchemaConstant.destinationD + i);
+            schemaFieldAssembler.optionalDouble(schemaConstant.destinationD + i);
         }
 
         return schemaFieldAssembler.endRecord();
 
     }
-
 
 }
