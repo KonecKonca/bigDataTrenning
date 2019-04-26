@@ -4,7 +4,7 @@ import org.junit._
 import Assert._
 
 @Test
-class AppScalaTestTest {
+class AppScalaTestRunner {
 
     @Test
     def testOK() = assertTrue(true)

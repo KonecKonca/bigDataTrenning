@@ -1,0 +1,65 @@
+package com.kozitski.spark.service.impl
+
+import com.kozitski.spark.domain.Hotel
+import com.kozitski.spark.runner.TaskRunner
+import com.kozitski.spark.service.{SearchService, Service}
+import org.apache.commons.lang3.math.NumberUtils
+import org.apache.spark.SparkContext
+
+class HotelWithChildrenService extends SearchService[(Hotel, Integer)] {
+
+  override def search(): Array[(Hotel, Integer)] = {
+    search(TaskRunner.sc, TaskRunner.WINDOWS_PATH)
+  }
+
+  override def search(path: String): Array[(Hotel, Integer)] = {
+    search(TaskRunner.sc, path)
+  }
+
+  override def search(sc: SparkContext, path: String): Array[(Hotel, Integer)] = {
+
+    sc
+      .textFile(path)
+      .mapPartitionsWithIndex(
+        (idx, iter) => if (idx == NumberUtils.INTEGER_ZERO) iter.drop(NumberUtils.INTEGER_ONE) else iter
+      )
+      .filter(elem => {
+        val strings = elem.split(Service.SPLIT_SYMBOL)
+
+        val isBooking = strings(HotelWithChildrenService.IS_BOOKING_INDEX)
+        val srchAdultsCnt = strings(HotelWithChildrenService.SRCH_ADULT_CNT)
+        val srchChildrenCnt = strings(HotelWithChildrenService.SRCH_CHILDREN_CNT)
+
+        isBooking != null && srchAdultsCnt != null && srchChildrenCnt != null && isBooking.equals(String.valueOf(NumberUtils.INTEGER_ZERO)) &&
+          Integer.parseInt(srchAdultsCnt) > NumberUtils.INTEGER_ONE && Integer.parseInt(srchChildrenCnt) > NumberUtils.INTEGER_ONE
+      })
+      .map(elem => {
+        val strings = elem.split(Service.SPLIT_SYMBOL)
+
+        (
+          Hotel(
+            strings(HotelWithChildrenService.HOTEL_CONTINENT),
+            strings(HotelWithChildrenService.HOTEL_COUNTRY),
+            strings(HotelWithChildrenService.HOTEL_MARKET)
+          ),
+          NumberUtils.INTEGER_ONE
+        )
+      })
+      .reduceByKey(_ + _)
+      .sortBy(tuple => -tuple._2)
+      .take(HotelWithChildrenService.TAKEN_NUMBER)
+
+  }
+
+}
+object HotelWithChildrenService extends Serializable {
+  val IS_BOOKING_INDEX = 18
+  val SRCH_ADULT_CNT = 13
+  val SRCH_CHILDREN_CNT = 14
+
+  val HOTEL_CONTINENT = 20
+  val HOTEL_COUNTRY = 21
+  val HOTEL_MARKET = 22
+
+  val TAKEN_NUMBER = 3
+}

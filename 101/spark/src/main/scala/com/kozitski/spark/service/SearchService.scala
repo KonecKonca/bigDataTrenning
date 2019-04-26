@@ -2,8 +2,10 @@ package com.kozitski.spark.service
 
 import org.apache.spark.SparkContext
 
-trait SearchService[T] {
+trait SearchService[T] extends Serializable {
 
-  def search(sc: SparkContext): List[T]
+  def search(): Array[T]
+  def search(path: String): Array[T]
+  def search(sc: SparkContext, path: String): Array[T]
 
 }
