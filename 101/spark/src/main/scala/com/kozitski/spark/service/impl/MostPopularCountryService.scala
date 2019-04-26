@@ -26,21 +26,31 @@ class MostPopularCountryService extends SearchService[(Country, Integer)] {
       .filter(elem => {
         val strings = elem.split(Service.SPLIT_SYMBOL)
 
-        val isBooking = strings(HotelWithChildrenService.IS_BOOKING_INDEX)
-        val userLocationCountry = 2
-        val hotelCountry = strings(HotelWithChildrenService.HOTEL_COUNTRY)
+        val isBooking = strings(MostPopularCountryService.IS_BOOKING_INDEX)
+        val userLocationCountry = strings(MostPopularCountryService.USER_LOCATION_COUNTRY)
+        val hotelCountry = strings(MostPopularCountryService.HOTEL_COUNTRY)
 
         isBooking != null && isBooking.equals(String.valueOf(NumberUtils.INTEGER_ONE)) &&
-        true
+        userLocationCountry != null && hotelCountry != null && userLocationCountry.equalsIgnoreCase(hotelCountry)
       })
+      .map(elem => {
+        val strings = elem.split(Service.SPLIT_SYMBOL)
+
+        (
+          Country(strings(MostPopularCountryService.HOTEL_COUNTRY)),
+          NumberUtils.INTEGER_ONE
+        )
+      })
+      .reduceByKey(_ + _)
+      .sortBy(tuple => -tuple._2)
+      .take(NumberUtils.INTEGER_ONE)
 
   }
 
 }
 
 object MostPopularCountryService extends Serializable {
+  val IS_BOOKING_INDEX = 18
   val HOTEL_COUNTRY = 21
+  val USER_LOCATION_COUNTRY = 3
 }
-
-
-// hotels are booked and searched from the same country
