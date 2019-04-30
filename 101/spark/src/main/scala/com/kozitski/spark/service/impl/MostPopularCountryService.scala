@@ -6,6 +6,9 @@ import com.kozitski.spark.service.{SearchService, Service}
 import org.apache.commons.lang3.math.NumberUtils
 import org.apache.spark.SparkContext
 
+/*
+  Service for (Find the most popular country where hotels are booked and searched from the same country)
+ */
 class MostPopularCountryService extends SearchService[(Country, Integer)] {
 
   override def search(): Array[(Country, Integer)] = {
@@ -49,6 +52,9 @@ class MostPopularCountryService extends SearchService[(Country, Integer)] {
 
 }
 
+/*
+  MostPopularCountryService constants
+ */
 object MostPopularCountryService extends Serializable {
   val IS_BOOKING_INDEX = 18
   val HOTEL_COUNTRY = 21

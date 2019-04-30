@@ -6,6 +6,9 @@ import com.kozitski.spark.service.{SearchService, Service}
 import org.apache.commons.lang3.math.NumberUtils
 import org.apache.spark.SparkContext
 
+/*
+  Service for (Find top 3 hotels where people with children are interested but not booked in the end)
+ */
 class HotelWithChildrenService extends SearchService[(Hotel, Integer)] {
 
   override def search(): Array[(Hotel, Integer)] = {
@@ -51,15 +54,16 @@ class HotelWithChildrenService extends SearchService[(Hotel, Integer)] {
 
   }
 
+/*
+  HotelWithChildrenService constants
+*/
 }
 object HotelWithChildrenService extends Serializable {
   val IS_BOOKING_INDEX = 18
   val SRCH_ADULT_CNT = 13
   val SRCH_CHILDREN_CNT = 14
-
   val HOTEL_CONTINENT = 20
   val HOTEL_COUNTRY = 21
   val HOTEL_MARKET = 22
-
   val TAKEN_NUMBER = 3
 }

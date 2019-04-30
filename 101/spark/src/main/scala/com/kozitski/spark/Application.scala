@@ -9,14 +9,14 @@ import org.apache.commons.lang3.math.NumberUtils
   first: number of running task
   second: input file path [optional] or [write hdfs to execution under hadoop file system]
 */
-object App extends App {
+object Application extends App {
+  val WITH_PATH_ARGS_SIZE = 2
   val FIRST_TASK_ARG = "1"
   val SECOND_TASK_ARG = "2"
   val THIRD_TASK_ARG = "3"
-
   val ON_HDFS_RUN = "hdfs"
 
-  if(args != null && args.length >= 1){
+  if(args != null && args.length >= NumberUtils.INTEGER_ONE){
 
     args(NumberUtils.INTEGER_ZERO) match {
       case FIRST_TASK_ARG => (new Task1Runner).run()
@@ -25,7 +25,7 @@ object App extends App {
     }
 
   }
-  else if(args != null && args.length >= 2 && args(NumberUtils.INTEGER_ONE) != null
+  else if(args != null && args.length >= WITH_PATH_ARGS_SIZE && args(NumberUtils.INTEGER_ONE) != null
           && args(NumberUtils.INTEGER_ONE).equals(ON_HDFS_RUN)){
 
     args(NumberUtils.INTEGER_ZERO) match {
@@ -35,7 +35,7 @@ object App extends App {
     }
 
   }
-  else if (args != null && args.length >= 2){
+  else if (args != null && args.length >= WITH_PATH_ARGS_SIZE){
 
     args(NumberUtils.INTEGER_ZERO) match {
       case FIRST_TASK_ARG => (new Task1Runner).run(args(NumberUtils.INTEGER_ONE))

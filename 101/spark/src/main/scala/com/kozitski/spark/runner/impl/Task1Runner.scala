@@ -4,6 +4,9 @@ import com.kozitski.spark.domain.Hotel
 import com.kozitski.spark.runner.{SparkTaskRunner, TaskRunner}
 import com.kozitski.spark.service.impl.PopularHotelSearchService
 
+/*
+  Runner for (Find top 3 most popular hotels between couples)
+ */
 class Task1Runner extends SparkTaskRunner{
 
   override def run(): Unit = {

@@ -6,6 +6,9 @@ import com.kozitski.spark.service.{SearchService, Service}
 import org.apache.commons.lang3.math.NumberUtils
 import org.apache.spark.SparkContext
 
+/*
+  Service for (Find top 3 most popular hotels between couple)
+ */
 class PopularHotelSearchService extends SearchService[(Hotel, Integer)] {
 
   override def search(): Array[(Hotel, Integer)] = {
@@ -27,7 +30,7 @@ class PopularHotelSearchService extends SearchService[(Hotel, Integer)] {
         val strings = e.split(Service.SPLIT_SYMBOL)
         val couple = strings(PopularHotelSearchService.IS_COUPLE_NUMBER)
 
-        couple != null && couple.equals(String.valueOf(NumberUtils.INTEGER_TWO))
+        couple != null && couple.equals(String.valueOf(PopularHotelSearchService.COUPLE_IDENTIFIER))
       })
       .map(e => {
         val strings = e.split(Service.SPLIT_SYMBOL)
@@ -50,11 +53,14 @@ class PopularHotelSearchService extends SearchService[(Hotel, Integer)] {
 
 }
 
+/*
+  PopularHotelSearchService constants
+ */
 object PopularHotelSearchService extends Serializable {
   val IS_COUPLE_NUMBER = 13
   val HOTEL_CONTINENT_INDEX = 18
   val HOTEL_COUNTRY_INDEX = 19
   val HOTEL_MARKET_INDEX = 20
-
   val COUNT_OF_INPUT_ROWS = 3
+  val COUPLE_IDENTIFIER = 2
 }

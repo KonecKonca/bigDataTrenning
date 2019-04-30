@@ -2,8 +2,12 @@ package com.kozitski.spark.runner
 
 import org.apache.spark.{SparkConf, SparkContext}
 
+/*
+  Common runners constants with
+  initialized SparkConfig and SparkContext
+ */
 object TaskRunner extends Serializable {
-  val WINDOWS_PATH = "C:\\Users\\Andrei_Kazitski\\Desktop\\dataData\\unziped\\train.csv"
+  val WINDOWS_PATH = "hdfs:///user/maria_dev/data/train.csv"
   val HDFS_PATH = "hdfs:///user/maria_dev/data/train.csv"
 
   val MASTER_NAME = "local"
