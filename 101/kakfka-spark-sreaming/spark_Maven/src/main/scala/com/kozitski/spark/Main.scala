@@ -1,4 +1,4 @@
-package by.epam.kafkareader
+package com.kozitski.spark
 
 import org.apache.spark.sql.streaming.StreamingQuery
 import org.apache.spark.sql.{DataFrame, SparkSession}
@@ -95,7 +95,10 @@ object Main {
     * @param path is a HDFS path where to store output.
     * @return [[StreamingQuery]] object.
     */
-  def writeStream(df:DataFrame, path: String): StreamingQuery = {
+  def writeStream(df: DataFrame, path: String): StreamingQuery = {
+
+   println("________________!!!!!!!!!!!!!!!!!!________________")
+    df.foreach(elem => println("_____________________" + elem.get(0) + " " + elem.get(1) + " " + elem.get(2)))
 
     df.writeStream
       .format("csv")
