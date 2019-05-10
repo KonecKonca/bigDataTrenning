@@ -27,23 +27,6 @@
 
   <dependencies>
 
-<!--    <dependency>-->
-<!--      <groupId>org.scala-lang</groupId>-->
-<!--      <artifactId>scala-library</artifactId>-->
-<!--      <version>${scala.version}</version>-->
-<!--    </dependency>-->
-<!--    <dependency>-->
-<!--      <groupId>org.specs</groupId>-->
-<!--      <artifactId>specs</artifactId>-->
-<!--      <version>1.2.5</version>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>-->
-<!--    <dependency>-->
-<!--      <groupId>org.scala-tools</groupId>-->
-<!--      <artifactId>maven-scala-plugin</artifactId>-->
-<!--      <version>2.11</version>-->
-<!--    </dependency>-->
-
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-core_2.11</artifactId>
@@ -62,7 +45,6 @@
       <version>2.4.0</version>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-sql-kafka-0-10_2.11</artifactId>
@@ -75,7 +57,6 @@
       <version>2.4.0</version>
       <scope>provided</scope>
     </dependency>
-
 
   </dependencies>
 
@@ -127,7 +108,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.kozitski.spark.CustomKafkaConsumer</mainClass>
+              <mainClass>com.kozitski.spark.Runner</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
