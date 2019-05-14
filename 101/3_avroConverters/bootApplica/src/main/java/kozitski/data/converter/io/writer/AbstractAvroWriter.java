@@ -1,7 +1,7 @@
 package kozitski.data.converter.io.writer;
 
-import kozitski.data.converter.io.IOConstant;
 import kozitski.data.converter.io.reader.AbstractCsvReader;
+import kozitski.data.converter.runner.arg.ApplicationProperties;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.Schema;
@@ -13,9 +13,9 @@ import org.apache.avro.io.DatumWriter;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,8 +27,21 @@ import java.util.List;
  */
 @Slf4j
 public abstract class AbstractAvroWriter<T> {
+
+    private ApplicationProperties applicationProperties;
+
+    @Autowired
+    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+        this.applicationProperties = applicationProperties;
+    }
+
     @Setter
-    private String avroFilePath = IOConstant.TEST_WRITE_PATH;
+    private String outputPath;
+
+    /**
+     * Call this method is necessary before using this object!!
+     */
+    public abstract void init();
 
     /**
      * Define schema schema.
@@ -57,13 +70,16 @@ public abstract class AbstractAvroWriter<T> {
      */
     @SuppressWarnings("unchecked")
     public void writeRecord(){
+        outputPath = File.separator + applicationProperties.getHostName() + File.separator +
+                applicationProperties.getPortValue() + File.separator + applicationProperties.getOutputPath();
+
         Schema schema = defineSchema();
         DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
 
         Configuration conf = new Configuration();
         try (
-                FileSystem fs = FileSystem.get(URI.create(avroFilePath), conf);
-                OutputStream out = fs.create(new Path(avroFilePath))
+                FileSystem fs = FileSystem.get(URI.create(outputPath), conf);
+                OutputStream out = fs.create(new Path(outputPath))
         ){
 
             AbstractCsvReader<T> csvReader = defineCsvReader();

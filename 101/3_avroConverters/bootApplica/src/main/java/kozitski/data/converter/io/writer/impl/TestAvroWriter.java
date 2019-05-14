@@ -47,6 +47,11 @@ public class TestAvroWriter extends AbstractAvroWriter<TestDTO> {
     }
 
     @Override
+    public void init() {
+        csvReader.init();
+    }
+
+    @Override
     public Schema defineSchema() {
         return schemaGenerator.generateSchema();
     }

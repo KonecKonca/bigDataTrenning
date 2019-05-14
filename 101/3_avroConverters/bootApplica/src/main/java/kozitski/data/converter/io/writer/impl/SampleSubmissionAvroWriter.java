@@ -47,6 +47,11 @@ public class SampleSubmissionAvroWriter extends AbstractAvroWriter<SampleSubmiss
     }
 
     @Override
+    public void init() {
+        sampleSubmissionCsvReader.init();
+    }
+
+    @Override
     public Schema defineSchema() {
         return sampleSubmissionSchemaGenerator.generateSchema();
     }

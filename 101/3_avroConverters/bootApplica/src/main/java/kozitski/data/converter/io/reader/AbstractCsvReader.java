@@ -1,6 +1,6 @@
 package kozitski.data.converter.io.reader;
 
-import kozitski.data.converter.io.IOConstant;
+import kozitski.data.converter.runner.arg.ApplicationProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,8 +23,16 @@ import java.util.List;
  */
 @Slf4j
 public abstract class AbstractCsvReader<T> {
+
+    private ApplicationProperties applicationProperties;
+
+    @Autowired
+    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+        this.applicationProperties = applicationProperties;
+    }
+
     @Setter
-    private int partitionSize = IOConstant.PARTS_SIZE;
+    private int batchSize;
     private int cursor;
     @Getter private boolean hasMore = true;
     private BufferedReader br;
@@ -31,17 +40,14 @@ public abstract class AbstractCsvReader<T> {
     /**
      * Instantiates a new Abstract csv reader.
      */
-    public AbstractCsvReader() {
-        this(IOConstant.TEST_READ_PATH);
-    }
+    public AbstractCsvReader() { }
 
     /**
-     * Instantiates a new Abstract csv reader.
-     *
-     * @param readFilePath the read file path
-     */
-    public AbstractCsvReader(String readFilePath) {
-        Path pt = new Path(readFilePath);
+        Call this method is necessary before using this object!!
+    */
+    public void init(){
+        Path pt = new Path(applicationProperties.getInputPath());
+        batchSize = applicationProperties.getBatchSize();
 
         try {
             FileSystem fs = FileSystem.get(new Configuration());
@@ -50,7 +56,6 @@ public abstract class AbstractCsvReader<T> {
         catch (IOException e){
             log.error("File wasn't red", e);
         }
-
     }
 
     /**
@@ -75,7 +80,7 @@ public abstract class AbstractCsvReader<T> {
             line = br.readLine();
 
             int writeCounter = NumberUtils.INTEGER_ZERO;
-            while (line != null && cursor++ < partitionSize ){
+            while (line != null && cursor++ < batchSize){
                 line = br.readLine();
                 result.add(parse(line));
                 log.info("Line which was red: " + writeCounter++);

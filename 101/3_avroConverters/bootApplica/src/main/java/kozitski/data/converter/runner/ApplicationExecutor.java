@@ -1,11 +1,8 @@
 package kozitski.data.converter.runner;
 
-import kozitski.data.converter.io.writer.AbstractAvroWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * The type Application executor.
@@ -14,25 +11,20 @@ import java.util.List;
 @Slf4j
 public class ApplicationExecutor {
 
-    private List<AbstractAvroWriter> writerList;
+    private WriterRunner writerRunner;
 
-    /**
-     * Sets writer list.
-     *
-     * @param writerList the writer list
-     */
     @Autowired
-    public void setWriterList(List<AbstractAvroWriter> writerList) {
-        this.writerList = writerList;
+    public void setWriterRunner(WriterRunner writerRunner) {
+        this.writerRunner = writerRunner;
     }
 
     /**
      * Run application.
      */
-    public void runApplication(){
+    public void runApplication(String ... args){
         log.info("Application was running...");
 
-        writerList.forEach(AbstractAvroWriter::writeRecord);
+        writerRunner.writeAll(args);
 
         log.info("...Application stopped work");
     }

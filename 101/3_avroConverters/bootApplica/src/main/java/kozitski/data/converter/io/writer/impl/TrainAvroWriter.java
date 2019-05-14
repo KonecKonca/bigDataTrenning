@@ -49,6 +49,11 @@ public class TrainAvroWriter extends AbstractAvroWriter<TrainDTO> {
     }
 
     @Override
+    public void init() {
+        trainCsvReader.init();
+    }
+
+    @Override
     public Schema defineSchema() {
         return trainSchemaGenerator.generateSchema();
     }

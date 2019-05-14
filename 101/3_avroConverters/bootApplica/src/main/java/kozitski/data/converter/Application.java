@@ -44,8 +44,8 @@ public class Application implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
-        applicationExecutor.runApplication();
+    public void run(String ... args) {
+        applicationExecutor.runApplication(args);
 
         context.close();
     }

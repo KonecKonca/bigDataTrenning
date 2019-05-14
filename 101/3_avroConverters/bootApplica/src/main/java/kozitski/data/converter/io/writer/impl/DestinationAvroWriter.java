@@ -41,6 +41,11 @@ public class DestinationAvroWriter extends AbstractAvroWriter<DestinationDTO> {
     }
 
     @Override
+    public void init() {
+        destinationCsvReader.init();
+    }
+
+    @Override
     public Schema defineSchema() {
         return destinationSchemaGenerator.generateSchema();
     }
