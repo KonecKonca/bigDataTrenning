@@ -1,8 +1,8 @@
-package com.kozitski.spark.service
+package com.kozitski.spark.service.service
 
 import com.kozitski.spark.domain.Hotel
-import org.junit._
 import com.kozitski.spark.service.impl.HotelWithChildrenService
+import org.junit._
 
 @Test
 class HotelWithChildrenServiceTest {

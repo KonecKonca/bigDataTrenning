@@ -1,4 +1,4 @@
-package com.kozitski.spark.service
+package com.kozitski.spark.service.service
 
 import com.kozitski.spark.domain.Hotel
 import com.kozitski.spark.service.impl.PopularHotelSearchService

@@ -1,7 +1,7 @@
-package com.kozitski.spark.service
+package com.kozitski.spark.service.service
 
-import com.kozitski.spark.domain.{Country, Hotel}
-import com.kozitski.spark.service.impl.{HotelWithChildrenService, MostPopularCountryService}
+import com.kozitski.spark.domain.Country
+import com.kozitski.spark.service.impl.MostPopularCountryService
 import org.junit._
 
 @Test

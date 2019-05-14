@@ -5,6 +5,7 @@ import com.kozitski.spark.runner.TaskRunner
 import com.kozitski.spark.service.{SearchService, Service}
 import org.apache.commons.lang3.math.NumberUtils
 import org.apache.spark.SparkContext
+import org.apache.spark.rdd.RDD
 
 /*
   Service for (Find top 3 hotels where people with children are interested but not booked in the end)
@@ -21,21 +22,28 @@ class HotelWithChildrenService extends SearchService[(Hotel, Integer)] {
 
   override def search(sc: SparkContext, path: String): Array[(Hotel, Integer)] = {
 
-    sc
+    val rdd = sc
       .textFile(path)
       .mapPartitionsWithIndex(
         (idx, iter) => if (idx == NumberUtils.INTEGER_ZERO) iter.drop(NumberUtils.INTEGER_ONE) else iter
       )
-      .filter(elem => {
-        val strings = elem.split(Service.SPLIT_SYMBOL)
 
-        val isBooking = strings(HotelWithChildrenService.IS_BOOKING_INDEX)
-        val srchAdultsCnt = strings(HotelWithChildrenService.SRCH_ADULT_CNT)
-        val srchChildrenCnt = strings(HotelWithChildrenService.SRCH_CHILDREN_CNT)
+    perform(rdd)
+  }
 
-        isBooking != null && srchAdultsCnt != null && srchChildrenCnt != null && isBooking.equals(String.valueOf(NumberUtils.INTEGER_ZERO)) &&
-          Integer.parseInt(srchAdultsCnt) > NumberUtils.INTEGER_ONE && Integer.parseInt(srchChildrenCnt) > NumberUtils.INTEGER_ONE
-      })
+  def perform(any: RDD[String]): Array[(Hotel, Integer)] = {
+
+    any.filter(elem =>
+    {
+      val strings = elem.split(Service.SPLIT_SYMBOL)
+
+      val isBooking = strings(HotelWithChildrenService.IS_BOOKING_INDEX)
+      val srchAdultsCnt = strings(HotelWithChildrenService.SRCH_ADULT_CNT)
+      val srchChildrenCnt = strings(HotelWithChildrenService.SRCH_CHILDREN_CNT)
+
+      isBooking != null && srchAdultsCnt != null && srchChildrenCnt != null && isBooking.equals(String.valueOf(NumberUtils.INTEGER_ZERO)) &&
+        Integer.parseInt(srchAdultsCnt) > NumberUtils.INTEGER_ONE && Integer.parseInt(srchChildrenCnt) > NumberUtils.INTEGER_ONE
+    })
       .map(elem => {
         val strings = elem.split(Service.SPLIT_SYMBOL)
 
