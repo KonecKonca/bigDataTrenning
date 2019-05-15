@@ -1,14 +1,14 @@
 package com.kozitski.spark.mapred
 
-import com.kozitski.spark.runner.TaskRunner
+import com.kozitski.spark.runner.ApplicationConfig
 import com.kozitski.spark.service.impl.HotelWithChildrenService
 import org.junit._
 
 @Test
 class HotelWithChildrenFilterTest {
 
-  val sc = TaskRunner.sc
-  var hotelSearchService = new HotelWithChildrenService
+  val sc = ApplicationConfig.sc
+  val hotelSearchService = new HotelWithChildrenService
 
   @Test(expected = classOf[Exception])
   def arrayOfBoundTest(): Unit = {

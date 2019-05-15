@@ -1,14 +1,14 @@
 package com.kozitski.spark.mapred
 
-import com.kozitski.spark.runner.TaskRunner
+import com.kozitski.spark.runner.ApplicationConfig
 import com.kozitski.spark.service.impl.{HotelWithChildrenService, MostPopularCountryService}
 import org.junit._
 
 @Test
 class MostPopularCountryFilterTest {
 
-  val sc = TaskRunner.sc
-  var mostPopularCountryService = new MostPopularCountryService
+  val sc = ApplicationConfig.sc
+  val mostPopularCountryService = new MostPopularCountryService
 
   @Test(expected = classOf[Exception])
   def arrayOfBoundTest(): Unit = {

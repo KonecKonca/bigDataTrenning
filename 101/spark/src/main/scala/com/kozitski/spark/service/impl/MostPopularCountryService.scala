@@ -1,7 +1,7 @@
 package com.kozitski.spark.service.impl
 
 import com.kozitski.spark.domain.{Country, Hotel}
-import com.kozitski.spark.runner.TaskRunner
+import com.kozitski.spark.runner.ApplicationConfig
 import com.kozitski.spark.service.{SearchService, Service}
 import org.apache.commons.lang3.math.NumberUtils
 import org.apache.spark.SparkContext
@@ -12,12 +12,8 @@ import org.apache.spark.rdd.RDD
  */
 class MostPopularCountryService extends SearchService[(Country, Integer)] {
 
-  override def search(): Array[(Country, Integer)] = {
-    search(TaskRunner.sc, TaskRunner.WINDOWS_PATH)
-  }
-
   override def search(path: String): Array[(Country, Integer)] = {
-    search(TaskRunner.sc, path)
+    search(ApplicationConfig.sc, path)
   }
 
   override def search(sc: SparkContext, path: String): Array[(Country, Integer)] = {

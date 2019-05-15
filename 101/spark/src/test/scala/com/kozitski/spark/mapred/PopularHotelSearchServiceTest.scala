@@ -1,14 +1,14 @@
 package com.kozitski.spark.mapred
 
-import com.kozitski.spark.runner.TaskRunner
+import com.kozitski.spark.runner.ApplicationConfig
 import com.kozitski.spark.service.impl.{MostPopularCountryService, PopularHotelSearchService}
 import org.junit._
 
 @Test
 class PopularHotelSearchServiceTest {
 
-  val sc = TaskRunner.sc
-  var popularHotelSearchService = new PopularHotelSearchService
+  val sc = ApplicationConfig.sc
+  val popularHotelSearchService = new PopularHotelSearchService
 
   @Test(expected = classOf[Exception])
   def arrayOfBoundTest(): Unit = {
